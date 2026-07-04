@@ -1,2 +1,2 @@
 # oharaoakesestheimer
-My personal portfolio and resume website, showcasing professional experience.
+My personal portfolio and resume website, showcasing my professional experience.
