@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ohara Oakes Estheimer — Operations Leader &amp; AI Operations SME</title>
+<meta name="description" content="Operations leader with 20+ years directing 24/7 critical-infrastructure systems, now building ground-truth datasets and evaluations for AI in the energy sector." />
+
+<!-- Keep this page out of search results (Google, Bing, etc.).
+     People with the direct link can still open it. Remove this line to be searchable. -->
+<meta name="robots" content="noindex, nofollow" />
+
+<!-- ============================================================
+     FONTS — load from the visitor's browser (works once hosted).
+     Display: Archivo (industrial grotesque) · Body: IBM Plex Sans
+     Data/labels: IBM Plex Mono
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --paper:#EFF0ED;        /* cool engineered off-white base */
+  --card:#FAFAF8;         /* raised panel */
+  --ink:#17191B;          /* graphite text */
+  --ink-soft:#3B4247;     /* body text */
+  --steel:#6A7178;        /* secondary / captions */
+  --line:#D8DAD4;         /* hairline rules */
+  --graphite:#191C1F;     /* dark control-room bands */
+  --graphite-2:#23272B;
+  --on-dark:#E7E9E6;
+  --on-dark-mute:#9BA1A3;
+  --signal:#0C6E74;       /* petrol-teal HMI accent */
+  --signal-bright:#12959D;
+  --amber:#E6A100;        /* status LED — used sparingly */
+
+  --maxw:1080px;
+  --pad:clamp(20px,5vw,64px);
+  --font-display:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  font-family:var(--font-body);
+  background:var(--paper);
+  color:var(--ink-soft);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* Mono utility label */
+.mono{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+
+a{color:var(--signal);text-decoration:none}
+a:hover{color:var(--signal-bright)}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,button:focus-visible{
+  outline:2px solid var(--signal);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* ============================================================
+   TOP STATUS STRIP — dark instrument band w/ live LED
+   ============================================================ */
+.statusbar{
+  background:var(--graphite);
+  color:var(--on-dark);
+  border-bottom:1px solid #000;
+}
+.statusbar .wrap{
+  display:flex;align-items:center;gap:22px;
+  min-height:44px;flex-wrap:wrap;
+  padding-top:8px;padding-bottom:8px;
+}
+.led{
+  display:inline-flex;align-items:center;gap:9px;
+  color:var(--on-dark);
+}
+.led .dot{
+  width:9px;height:9px;border-radius:50%;
+  background:var(--amber);
+  box-shadow:0 0 0 0 rgba(230,161,0,.55);
+  animation:pulse 2.4s ease-out infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(230,161,0,.55)}
+  70%{box-shadow:0 0 0 7px rgba(230,161,0,0)}
+  100%{box-shadow:0 0 0 0 rgba(230,161,0,0)}
+}
+@media (prefers-reduced-motion:reduce){.led .dot{animation:none}}
+.statusbar .field{color:var(--on-dark-mute)}
+.statusbar .field b{color:var(--on-dark);font-weight:600}
+.statusbar .sep{color:#3a3f43}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav.top{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(1.1) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:60px}
+.brand{
+  font-family:var(--font-display);font-weight:800;
+  letter-spacing:.02em;color:var(--ink);font-size:.98rem;
+  text-transform:uppercase;
+}
+.brand span{color:var(--signal)}
+.navlinks{display:flex;gap:26px}
+.navlinks a{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--steel);
+}
+.navlinks a:hover{color:var(--ink)}
+@media (max-width:720px){.navlinks{display:none}}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+header.hero{padding:clamp(48px,9vw,104px) 0 clamp(40px,7vw,72px)}
+.hero .eyebrow{color:var(--signal);margin-bottom:26px}
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-.01em;
+  line-height:.95;
+  color:var(--ink);
+  font-size:clamp(2.7rem,9vw,6.1rem);
+}
+.hero h1 .l2{display:block;color:var(--ink)}
+.hero .role{
+  font-family:var(--font-mono);
+  font-size:clamp(.8rem,2vw,.95rem);
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--steel);
+  margin-top:22px;
+}
+.hero .role b{color:var(--signal);font-weight:600}
+.hero .thesis{
+  max-width:60ch;
+  font-size:clamp(1.08rem,2.4vw,1.34rem);
+  line-height:1.5;color:var(--ink);
+  margin-top:30px;font-weight:500;
+}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;
+  text-transform:uppercase;font-weight:500;
+  padding:13px 20px;border-radius:2px;border:1px solid var(--ink);
+  transition:transform .15s ease,background .15s ease,color .15s ease;
+}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.primary:hover{background:var(--signal);border-color:var(--signal);color:#fff;transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{border-color:var(--signal);color:var(--signal);transform:translateY(-1px)}
+
+/* ============================================================
+   READOUT — spec-sheet metric tiles
+   ============================================================ */
+.readout{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.readout .grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.readout .cell{
+  padding:26px clamp(14px,2.4vw,26px);
+  border-left:1px solid var(--line);
+}
+.readout .cell:first-child{border-left:0}
+.readout .val{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(1.5rem,3.6vw,2.3rem);color:var(--ink);line-height:1;
+  letter-spacing:-.01em;
+}
+.readout .lab{color:var(--steel);margin-top:12px;display:block}
+@media (max-width:720px){
+  .readout .grid{grid-template-columns:repeat(2,1fr)}
+  .readout .cell:nth-child(3){border-left:0}
+  .readout .cell:nth-child(3),.readout .cell:nth-child(4){border-top:1px solid var(--line)}
+}
+
+/* ============================================================
+   SECTION SCAFFOLD
+   ============================================================ */
+section{padding:clamp(56px,9vw,104px) 0;border-bottom:1px solid var(--line)}
+.sec-head{margin-bottom:44px}
+.sec-head .code{color:var(--signal);display:block;margin-bottom:14px}
+.sec-head h2{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(1.7rem,4.4vw,2.7rem);color:var(--ink);
+  letter-spacing:-.01em;line-height:1.02;text-transform:uppercase;
+}
+.lead{max-width:64ch;font-size:1.06rem;color:var(--ink-soft)}
+.lead + .lead{margin-top:18px}
+.lead b{color:var(--ink);font-weight:600}
+
+/* ABOUT layout */
+.about-grid{display:grid;grid-template-columns:1fr;gap:34px}
+@media (min-width:860px){.about-grid{grid-template-columns:1.55fr .9fr;gap:56px}}
+.sidepanel{
+  background:var(--card);border:1px solid var(--line);border-radius:3px;
+  padding:26px;align-self:start;
+}
+.sidepanel h3{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--signal);margin-bottom:18px;font-weight:600;
+}
+.spec-row{
+  display:flex;justify-content:space-between;gap:16px;
+  padding:11px 0;border-top:1px solid var(--line);
+  font-size:.92rem;
+}
+.spec-row:first-of-type{border-top:0}
+.spec-row .k{color:var(--steel);font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.spec-row .v{color:var(--ink);font-weight:600;text-align:right}
+
+/* ============================================================
+   CAPABILITIES
+   ============================================================ */
+.cap-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+@media (min-width:640px){.cap-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:960px){.cap-grid{grid-template-columns:repeat(3,1fr)}}
+.cap{
+  background:var(--card);padding:26px 24px;
+  transition:background .2s ease;
+}
+.cap:hover{background:#fff}
+.cap .n{font-family:var(--font-mono);font-size:.72rem;color:var(--signal);letter-spacing:.1em;font-weight:600}
+.cap h3{font-family:var(--font-display);font-weight:700;font-size:1.12rem;color:var(--ink);margin:12px 0 8px}
+.cap p{font-size:.93rem;color:var(--ink-soft);line-height:1.55}
+
+/* ============================================================
+   EXPERIENCE TIMELINE
+   ============================================================ */
+.timeline{position:relative}
+.job{
+  display:grid;grid-template-columns:1fr;gap:6px;
+  padding:30px 0;border-top:1px solid var(--line);
+}
+.job:first-child{border-top:0}
+@media (min-width:820px){
+  .job{grid-template-columns:200px 1fr;gap:40px}
+}
+.job .when{padding-top:4px}
+.job .yr{font-family:var(--font-display);font-weight:800;color:var(--ink);font-size:1.05rem}
+.job .where{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--steel);margin-top:8px;display:block}
+.job h3{font-family:var(--font-display);font-weight:700;font-size:1.25rem;color:var(--ink);line-height:1.15}
+.job .org{color:var(--signal);font-weight:600;font-size:.96rem;margin-top:2px}
+.job p{font-size:.97rem;color:var(--ink-soft);margin-top:12px;max-width:70ch}
+.job ul{margin:12px 0 0 0;list-style:none;max-width:70ch}
+.job li{position:relative;padding-left:20px;font-size:.95rem;color:var(--ink-soft);margin-top:8px}
+.job li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:2px;background:var(--signal)}
+
+/* ============================================================
+   FOCUS / CASE FILES  (room to expand beyond the resume)
+   ============================================================ */
+.files{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:820px){.files{grid-template-columns:repeat(2,1fr)}}
+.file{
+  background:var(--card);border:1px solid var(--line);border-radius:3px;
+  padding:28px 26px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.file:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(0,0,0,.35);border-color:var(--signal)}
+.file .tag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);font-weight:600}
+.file h3{font-family:var(--font-display);font-weight:700;font-size:1.24rem;color:var(--ink);margin:12px 0 10px;line-height:1.2}
+.file p{font-size:.95rem;color:var(--ink-soft)}
+
+/* ============================================================
+   SYSTEMS & STANDARDS — chips
+   ============================================================ */
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.05em;
+  padding:8px 13px;border:1px solid var(--line);border-radius:2px;
+  color:var(--ink);background:var(--card);
+}
+.chip.hl{border-color:var(--signal);color:var(--signal)}
+.sys-cols{display:grid;grid-template-columns:1fr;gap:34px}
+@media (min-width:760px){.sys-cols{grid-template-columns:repeat(2,1fr);gap:48px}}
+.sys-cols h3{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--steel);margin-bottom:16px;font-weight:600}
+
+/* ============================================================
+   CONTACT / FOOTER — dark instrument band
+   ============================================================ */
+footer{background:var(--graphite);color:var(--on-dark);border-bottom:0}
+footer .wrap{padding-top:clamp(56px,8vw,88px);padding-bottom:clamp(40px,6vw,64px)}
+footer .code{color:var(--amber);display:block;margin-bottom:18px}
+footer h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.9rem,5vw,3rem);color:#fff;line-height:1.02;letter-spacing:-.01em;
+}
+footer p.sub{color:var(--on-dark-mute);max-width:58ch;margin-top:18px;font-size:1.05rem}
+.contact-rows{margin-top:38px;display:grid;grid-template-columns:1fr;gap:1px;background:var(--graphite-2);border:1px solid var(--graphite-2);border-radius:3px;overflow:hidden}
+@media (min-width:640px){.contact-rows{grid-template-columns:repeat(3,1fr)}}
+.crow{background:var(--graphite);padding:22px 24px;transition:background .2s ease}
+.crow:hover{background:var(--graphite-2)}
+.crow .k{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-mute)}
+.crow .v{display:block;margin-top:8px;color:#fff;font-weight:600;font-size:1.02rem;word-break:break-word}
+.crow a.v{color:#fff}
+.crow a.v:hover{color:var(--amber)}
+.foot-meta{
+  margin-top:44px;padding-top:22px;border-top:1px solid var(--graphite-2);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  color:var(--on-dark-mute);
+}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+
+<body>
+
+<!-- ========== TOP STATUS STRIP ========== -->
+<div class="statusbar">
+  <div class="wrap">
+    <span class="led mono"><span class="dot" aria-hidden="true"></span>Operational — Available</span>
+    <span class="sep" aria-hidden="true">/</span>
+    <span class="field mono">Relocation: <b>Open</b></span>
+    <span class="sep" aria-hidden="true">/</span>
+    <span class="field mono">Base: <b>North Salt Lake, UT</b></span>
+  </div>
+</div>
+
+<!-- ========== NAV ========== -->
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">OHARA<span>·</span>OAKES<span>·</span>ESTHEIMER</a>
+    <div class="navlinks">
+      <a href="#about">Profile</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#experience">Experience</a>
+      <a href="#focus">Focus</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="mono eyebrow">Operations Leader · Critical Infrastructure · AI Operations SME</div>
+    <h1>Ohara Oakes<span class="l2">Estheimer</span></h1>
+    <div class="role">20+ years · 24/7 industrial operations · <b>refineries → AI ground-truth</b></div>
+    <p class="thesis">Two decades keeping critical systems running safely and continuously — and now training the AI that will help run the next generation of them.</p>
+    <div class="cta">
+      <a class="btn primary" href="#contact">Get in touch</a>
+      <a class="btn ghost" href="#experience">See the track record</a>
+    </div>
+  </div>
+</header>
+
+<!-- ========== READOUT ========== -->
+<div class="readout">
+  <div class="wrap" style="padding-top:0;padding-bottom:0">
+    <div class="grid">
+      <div class="cell"><div class="val">20+</div><span class="lab mono">Years in operations</span></div>
+      <div class="cell"><div class="val">24/7</div><span class="lab mono">Continuous systems directed</span></div>
+      <div class="cell"><div class="val">Union</div><span class="lab mono">Workforce led &amp; developed</span></div>
+      <div class="cell"><div class="val">EPA·ASTM</div><span class="lab mono">Regulated environments</span></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ========== ABOUT / PROFILE ========== -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono code">01 — Profile</span>
+      <h2>Field-aligned operations leadership</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="lead">I lead <b>24/7 industrial operations</b> that support critical infrastructure in highly regulated environments — the kind of systems where downtime, drift, or a missed reading has real consequences. Across refineries and analytical labs, my work has centered on the same core loop: keep production safe and reliable, respond decisively when conditions turn, and develop the people and processes that make consistency possible.</p>
+        <p class="lead">My background sits at the intersection of the plant floor and the control room. I&rsquo;ve directed blending and production decisions against regulatory constraints and system limits, run incident response and root-cause analysis on live disruptions, coordinated maintenance and readiness across operations and logistics, and supervised union crews with clear accountability for safety and performance.</p>
+        <p class="lead">Most recently I&rsquo;ve carried that operational fluency into <b>AI</b> — building ground-truth datasets and evaluation rubrics that teach large language models how real energy-sector workflows actually behave. It turns out that knowing how a plant runs is exactly what&rsquo;s needed to judge whether an AI understands it.</p>
+      </div>
+      <aside class="sidepanel reveal" aria-label="At a glance">
+        <h3>At a glance</h3>
+        <div class="spec-row"><span class="k">Domain</span><span class="v">Energy · Refining · Utilities</span></div>
+        <div class="spec-row"><span class="k">Core</span><span class="v">24/7 Operations Leadership</span></div>
+        <div class="spec-row"><span class="k">Workforce</span><span class="v">Union · Multi-shift</span></div>
+        <div class="spec-row"><span class="k">Compliance</span><span class="v">EPA · ASTM · CARB</span></div>
+        <div class="spec-row"><span class="k">Systems</span><span class="v">Maximo · PI Historian · LIMS</span></div>
+        <div class="spec-row"><span class="k">Relocation</span><span class="v">Open</span></div>
+        <div class="spec-row"><span class="k">Status</span><span class="v">Available</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CAPABILITIES ========== -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono code">02 — Capabilities</span>
+      <h2>What I bring to the operation</h2>
+    </div>
+    <div class="cap-grid reveal">
+      <div class="cap">
+        <span class="n">C-01</span>
+        <h3>Operations &amp; infrastructure leadership</h3>
+        <p>Directing continuous production and critical systems — owning reliability, throughput, and system optimization end to end.</p>
+      </div>
+      <div class="cap">
+        <span class="n">C-02</span>
+        <h3>Emergency &amp; incident response</h3>
+        <p>Decision-making under pressure during unplanned events and system disruptions, with structured troubleshooting and root-cause follow-through.</p>
+      </div>
+      <div class="cap">
+        <span class="n">C-03</span>
+        <h3>Maintenance planning &amp; readiness</h3>
+        <p>Coordinating scheduling, calibration, and operational readiness across operations, maintenance, and logistics teams.</p>
+      </div>
+      <div class="cap">
+        <span class="n">C-04</span>
+        <h3>Safety &amp; zero-incident culture</h3>
+        <p>Reinforcing safety expectations, compliance programs, audits, and corrective action as everyday practice — not a poster on the wall.</p>
+      </div>
+      <div class="cap">
+        <span class="n">C-05</span>
+        <h3>Union labor relations</h3>
+        <p>Supervising and developing multi-shift union crews with accountability to labor practices, performance, and scheduling.</p>
+      </div>
+      <div class="cap">
+        <span class="n">C-06</span>
+        <h3>AI evaluation &amp; ground-truth data</h3>
+        <p>Turning operational expertise into datasets, rubrics, and edge-case tests that align and benchmark large language models.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EXPERIENCE ==========
+     Edit years, titles, and bullets freely. Add or remove <div class="job"> blocks.
+-->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono code">03 — Experience</span>
+      <h2>Track record</h2>
+    </div>
+    <div class="timeline">
+
+      <article class="job reveal">
+        <div class="when">
+          <div class="yr">2026 — Present</div>
+          <span class="where">Energy-sector AI training provider · Contract</span>
+        </div>
+        <div>
+          <h3>AI Operations SME &amp; Data Specialist</h3>
+          <div class="org">Enterprise AI Training Provider</div>
+          <p>Engineer high-quality &ldquo;golden&rdquo; deliverables and technical ground-truth datasets that train, align, and evaluate large language models on complex operational workflows.</p>
+          <ul>
+            <li>Analyze multi-source packages — control-system event logs, maintenance work orders, safety compliance records — to build audit workbooks and shift handovers.</li>
+            <li>Cross-verify Maximo and PI Historian records against operator notes to catch data anomalies and logic gaps that drive AI hallucinations.</li>
+            <li>Design rigorous prompt sequences and edge-case tests, and set objective grading rubrics to score model outputs against accuracy and data-integrity standards.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">
+          <div class="yr">2021 — Present</div>
+          <span class="where">Private resort · Abroad</span>
+        </div>
+        <div>
+          <h3>Owner &amp; Manager</h3>
+          <div class="org">Independent hospitality operation</div>
+          <p>Own full operational oversight of facility infrastructure — utilities, maintenance, and vendor services — while running daily digital operations and client communications.</p>
+          <ul>
+            <li>Coordinate maintenance scheduling, system readiness, and continuity of operations.</li>
+            <li>Respond to urgent facility issues requiring immediate decisions, while managing budgeting and performance.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">
+          <div class="yr">2014 — 2021</div>
+          <span class="where">Big West Oil Refinery · North Salt Lake, UT</span>
+        </div>
+        <div>
+          <h3>Laboratory Assistant Manager / Blend Optimization</h3>
+          <div class="org">Big West Oil Refinery</div>
+          <p>Led operational execution inside a 24/7 industrial environment supporting continuous production and critical infrastructure, and acted as a key decision-maker during off-hours events.</p>
+          <ul>
+            <li>Directed blending and production decisions balancing regulatory constraints, system limits, and demand.</li>
+            <li>Supervised and developed a union workforce — performance, scheduling, and accountability.</li>
+            <li>Led incident response, troubleshooting, and root-cause analysis on system disruptions and production impacts.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">
+          <div class="yr">2019 — 2020</div>
+          <span class="where">Big West Oil Refinery · North Salt Lake, UT</span>
+        </div>
+        <div>
+          <h3>Interim Laboratory Manager</h3>
+          <div class="org">Big West Oil Refinery</div>
+          <p>Assumed full operational leadership of the lab supporting continuous refinery operations, ensuring uninterrupted support to production systems.</p>
+          <ul>
+            <li>Managed a multi-shift workforce and resolved time-critical system issues with operations leadership.</li>
+            <li>Oversaw calibration, maintenance coordination, and integrity of critical analytical equipment.</li>
+            <li>Led compliance programs, audits, and corrective-action processes; reinforced safety expectations.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">
+          <div class="yr">2006 — 2012</div>
+          <span class="where">Paramount Petroleum (ALON USA) · Paramount, CA</span>
+        </div>
+        <div>
+          <h3>Petroleum Chemist</h3>
+          <div class="org">Paramount Petroleum Corporation</div>
+          <p>Performed analytical testing supporting product release and regulatory compliance, maintained certification records for audit readiness, and trained personnel on lab procedures under strict timelines.</p>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">
+          <div class="yr">2003 — 2006</div>
+          <span class="where">BSI–Inspectorate (Bureau Veritas) · Carson, CA</span>
+        </div>
+        <div>
+          <h3>Chemist / Lab Analyst Trainer</h3>
+          <div class="org">BSI–Inspectorate</div>
+          <p>Conducted analytical testing across multiple product lines, managed workflow scheduling to hit operational deadlines, and trained new hires on procedures, safety, and compliance.</p>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">
+          <div class="yr">2001 — 2003</div>
+          <span class="where">Chevron Refinery · El Segundo, CA</span>
+        </div>
+        <div>
+          <h3>Chemist</h3>
+          <div class="org">Chevron Refinery</div>
+          <p>Conducted environmental analysis supporting wastewater treatment and emissions compliance, performed product certification testing to regulatory standards, and tested jet fuels supplying LAX.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOCUS / CASE FILES ==========
+     This is the space your resume doesn't have room for.
+     Expand each card into a real story: the situation, what you did, the result.
+-->
+<section id="focus">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono code">04 — Focus areas</span>
+      <h2>Where I go deep</h2>
+    </div>
+    <div class="files">
+      <article class="file reveal">
+        <span class="tag">Production · Regulatory</span>
+        <h3>Blend optimization under constraint</h3>
+        <p>Balancing product specs, regulatory limits, system capacity, and demand in real time — the daily judgment call of turning raw streams into compliant, on-spec product without stalling the line.</p>
+      </article>
+      <article class="file reveal">
+        <span class="tag">Reliability · Response</span>
+        <h3>Emergency &amp; off-hours response</h3>
+        <p>Being the decision-maker when a system disruption hits at 2 a.m. — stabilizing the situation, coordinating the right people, then driving root-cause analysis so it doesn&rsquo;t recur.</p>
+      </article>
+      <article class="file reveal">
+        <span class="tag">People · Safety</span>
+        <h3>Leading a union workforce safely</h3>
+        <p>Building a zero-incident culture with multi-shift union crews — clear standards, fair accountability, and development that keeps skilled operators engaged and performing.</p>
+      </article>
+      <article class="file reveal">
+        <span class="tag">AI · Data integrity</span>
+        <h3>Teaching AI how a plant really runs</h3>
+        <p>Translating decades of operational context into ground-truth datasets and evaluation rubrics — cross-checking Maximo, PI Historian, and operator notes to close the gaps where models otherwise hallucinate.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SYSTEMS & STANDARDS ========== -->
+<section id="systems">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono code">05 — Systems &amp; standards</span>
+      <h2>Tools &amp; regulatory fluency</h2>
+    </div>
+    <div class="sys-cols reveal">
+      <div>
+        <h3>Systems &amp; platforms</h3>
+        <div class="chips">
+          <span class="chip hl">Maximo</span>
+          <span class="chip hl">PI Historian</span>
+          <span class="chip hl">LIMS</span>
+          <span class="chip">Kronos</span>
+          <span class="chip">Microsoft 365</span>
+          <span class="chip">Google Workspace</span>
+        </div>
+      </div>
+      <div>
+        <h3>Standards &amp; regulatory training</h3>
+        <div class="chips">
+          <span class="chip">ASTM</span>
+          <span class="chip">AASHTO</span>
+          <span class="chip">EPA</span>
+          <span class="chip">CARB</span>
+          <span class="chip">Hazardous Materials</span>
+          <span class="chip">Industrial Safety</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EDUCATION ========== -->
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono code">06 — Education</span>
+      <h2>Foundation</h2>
+    </div>
+    <div class="reveal">
+      <div class="job" style="border-top:0;padding-top:0">
+        <div class="when">
+          <div class="yr">B.S.</div>
+          <span class="where">De La Salle University</span>
+        </div>
+        <div>
+          <h3>Bachelor of Science in Biology</h3>
+          <div class="org">Emphasis in Chemistry</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========== CONTACT / FOOTER ========== -->
+<footer id="contact">
+  <div class="wrap">
+    <span class="mono code">07 — Contact</span>
+    <h2>Let&rsquo;s talk about your operation</h2>
+    <p class="sub">Open to operations leadership, reliability, and AI-operations roles — and open to relocation. The fastest way to reach me is email.</p>
+
+    <div class="contact-rows">
+      <div class="crow">
+        <span class="k">Email</span>
+        <a class="v" href="mailto:oharaoakes@gmail.com">oharaoakes@gmail.com</a>
+      </div>
+      <!-- Prefer to keep your phone off a public page? Delete the block below. -->
+      <div class="crow">
+        <span class="k">Phone</span>
+        <a class="v" href="tel:+18015028419">801-502-8419</a>
+      </div>
+      <div class="crow">
+        <span class="k">Location</span>
+        <span class="v">North Salt Lake, UT · Will relocate</span>
+      </div>
+    </div>
+
+    <div class="foot-meta mono">
+      <span>© <span id="yr"></span> Ohara Oakes Estheimer</span>
+      <span>Operations · Critical Infrastructure · AI</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // current year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // scroll reveal (respects reduced-motion via CSS)
+  const els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(el=>io.observe(el));
+  } else {
+    els.forEach(el=>el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
